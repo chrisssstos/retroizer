@@ -111,25 +111,29 @@ void RetroizerAudioProcessorEditor::resized()
     auto bounds = getLocalBounds();
     bounds.removeFromTop(70); // Space for title
 
-    // Layout for top row (bit depth and radio mix 1)
-    auto topRow = bounds.removeFromTop(110);
-    auto bitDepthArea = topRow.removeFromLeft(getWidth() / 2);
-    auto radioMix1Area = topRow;
+    // Calculate areas for each control
+    int halfWidth = getWidth() / 2;
+    int controlHeight = (getHeight() - 70) / 2;
 
+    // Top row
+    auto topRow = bounds.removeFromTop(controlHeight);
+
+    // Bit depth (top left)
+    auto bitDepthArea = topRow.removeFromLeft(halfWidth);
     bitDepthSlider.setBounds(bitDepthArea.reduced(10).removeFromTop(80));
-    bitDepthLabel.setBounds(bitDepthArea.reduced(10));
+    bitDepthLabel.setBounds(bitDepthArea.reduced(10).removeFromTop(20));
 
-    radioMix1Slider.setBounds(radioMix1Area.reduced(10).removeFromTop(80));
-    radioMix1Label.setBounds(radioMix1Area.reduced(10));
+    // Radio mix 1 (top right)
+    radioMix1Slider.setBounds(topRow.reduced(10).removeFromTop(80));
+    radioMix1Label.setBounds(topRow.reduced(10).removeFromTop(20));
 
-    // Layout for bottom row (sample rate and radio mix 2)
-    auto bottomRow = bounds;
-    auto sampleRateArea = bottomRow.removeFromLeft(getWidth() / 2);
-    auto radioMix2Area = bottomRow;
-
+    // Bottom row
+    // Sample rate (bottom left)
+    auto sampleRateArea = bounds.removeFromLeft(halfWidth);
     sampleRateSlider.setBounds(sampleRateArea.reduced(10).removeFromTop(80));
-    sampleRateLabel.setBounds(sampleRateArea.reduced(10));
+    sampleRateLabel.setBounds(sampleRateArea.reduced(10).removeFromTop(20));
 
-    radioMix2Slider.setBounds(radioMix2Area.reduced(10).removeFromTop(80));
-    radioMix2Label.setBounds(radioMix2Area.reduced(10));
+    // Radio mix 2 (bottom right)
+    radioMix2Slider.setBounds(bounds.reduced(10).removeFromTop(80));
+    radioMix2Label.setBounds(bounds.reduced(10).removeFromTop(20));
 }
